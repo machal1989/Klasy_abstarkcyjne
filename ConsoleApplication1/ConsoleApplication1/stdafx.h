@@ -11,6 +11,7 @@
 #include <tchar.h>
 #include <iostream>
 #include <cstdlib>
+#include <string>
 
 
 // TODO: reference additional headers your program requires here
