@@ -38,7 +38,7 @@ public:
 
 class Czlowiek {
 public:
-	virtual void pij() = 0;
+	virtual void pij(int a) = 0;
 	virtual string przedstaw_sie() = 0;
 
 };
@@ -48,10 +48,10 @@ class Student: public Czlowiek {
 	string imie, nazwisko, d;
 	int NrIndeksu;
 public:
-	Student( string a, string b, string c): imie(a), nazwisko(b), NrIndeksu(c) {};
+	Student( string a, string b, int c): imie(a), nazwisko(b), NrIndeksu(c) {};
 	string przedstaw_sie()
 	{
-		return imie + "   " + nazwisko + to_string(NrIndeksu);
+		return imie + "   " + nazwisko + "   " + to_string(NrIndeksu);
 	}
 	void pij(int a)
 	{
@@ -80,11 +80,24 @@ public:
 	}
 };
 
+
+string przedtsawienie(Czlowiek* obj)
+{
+	return obj->przedstaw_sie();
+}
+
+void wypij(Czlowiek* obj, int a)
+{
+	obj->pij(a);
+}
+
+
 int _tmain(int argc, _TCHAR* argv[])
 {
 	int dlugosc;
 	CProstokat prostakat1(3,12);
 	CTrojkat troj1(12,5);
+	Czlowiek* wsk3;
 
 	CWielokat* wsk1 = &prostakat1;
 	CWielokat* wsk2 = &troj1;
@@ -96,7 +109,48 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	cout << "Podaj dlugosc kolejki" << endl;
 	cin >> dlugosc;
-	//Czlowiek* wsk = new Czlowiek[dlugosc];
+	Czlowiek **wsk = new Czlowiek*[dlugosc];
+
+	for (int i=0; i<dlugosc; i++)
+	{
+		int zmienna_obiektu;
+		cout << "Jesli chcesz wprowadzic studenta wcisnij 0, jezeli pracownika wcisnij 1" << endl;
+		cin >> zmienna_obiektu;
+		string imie;
+		string nazwisko;
+		int nr_ind;
+		if (zmienna_obiektu)
+		{
+			cout << "Podaj imie" << endl;
+			cin >> imie;
+			cout << "Podaj nazwisko" << endl;
+			cin >> nazwisko;
+			Czlowiek *wsk_prac = new Pracownik(imie, nazwisko);
+			*(wsk + i) = wsk_prac;
+		}
+		else 
+		{
+			cout << "Podaj imie" << endl;
+			cin >> imie;
+			cout << "Podaj nazwisko" << endl;
+			cin >> nazwisko;
+			cout << "Podaj nr indeksu" << endl;
+			cin >> nr_ind;
+			Czlowiek *wsk_prac = new Student(imie, nazwisko, nr_ind);
+			*(wsk + i) = wsk_prac;
+		}
+	}
+	cout << "A teraz wszyskie osoby w kolejce przedstawia sie " << endl;
+
+
+	
+	for (int i=0; i<dlugosc; i++)
+	{
+		cout << (*(wsk+1))->przedstaw_sie() << endl; 
+		//string n = przedtsawienie(*(wsk+1));
+	}
+
+
 
 	system("pause");
 	return 0;
