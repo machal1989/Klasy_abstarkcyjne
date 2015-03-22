@@ -63,6 +63,7 @@ public:
 	}
 };
 
+
 class Pracownik: public Czlowiek {
 	string imie, nazwisko;
 public:
@@ -91,6 +92,12 @@ void wypij(Czlowiek* obj, int a)
 	obj->pij(a);
 }
 
+ostream & operator<<(ostream & stud, Czlowiek * s)
+{
+	stud << "Przedstawiam sie:" << endl;
+	stud << przedtsawienie(s);
+	return stud;
+}
 
 int _tmain(int argc, _TCHAR* argv[])
 {
@@ -146,12 +153,15 @@ int _tmain(int argc, _TCHAR* argv[])
 	
 	for (int i=0; i<dlugosc; i++)
 	{
-		cout << (*(wsk+1))->przedstaw_sie() << endl; 
-		//string n = przedtsawienie(*(wsk+1));
+		cout << (*(wsk+i)) << endl;
 	}
 
 
-
+	for (int i=0; i<dlugosc; i++)
+	{
+		(*(wsk+i))->pij(5);
+		//string n = przedtsawienie(*(wsk+1));
+	}
 	system("pause");
 	return 0;
 }
